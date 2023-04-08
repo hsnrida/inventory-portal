@@ -9,10 +9,11 @@ export default function ItemsPage() {
 
   const [search, setSearch] = useState("");
   const { productId } = useParams();
- useEffect(() => {getItems();} , []);
+  const token = localStorage.getItem('token');
+
+  useEffect(() => { getItems(); }, []);
   const getItems = async () => {
     axios.defaults.baseURL = "http://inventory.test/api/";
-    const token = localStorage.getItem('token');
 
     await axios.get(`products/${productId}/items`, {
       headers: {
@@ -33,6 +34,18 @@ export default function ItemsPage() {
     setSearch(event.target.value);
   };
 
+  const handleCheck = (item) => {
+    axios.put(`products/${productId}/items/${item.id}/sold`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(response => {
+      getItems();
+    }).catch(error => {
+      console.error(error);
+    });
+  };
+
   const filteredItems = items.filter((item) =>
     item.serial_number.toString().includes(search)
   );
@@ -45,7 +58,7 @@ export default function ItemsPage() {
       <Navbar />
       <div className="flex justify-center pt-6">
         <div className="flex flex-col w-4/6 ">
-        <h3>Items</h3>
+          <h3>Items</h3>
 
           <div className="mt-3 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -64,9 +77,9 @@ export default function ItemsPage() {
                     />
                   </div>
                   <button
-                   className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   onClick={() => handleAddItem()} 
-                   >
+                    className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onClick={() => handleAddItem()}
+                  >
                     Add Item
                   </button>
                 </div>
@@ -89,7 +102,7 @@ export default function ItemsPage() {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Count
+                        Sold
                       </th>
                       <th scope="col" className="relative px-6 py-3">
                         <span className="sr-only">Edit</span>
@@ -109,13 +122,9 @@ export default function ItemsPage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">{item.serial_number}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className="px-2 inline-flex text-xs leading-5
-                      font-semibold rounded-full bg-green-100 text-green-800"
-                          >
-                            {item.count}
-                          </span>
+
+                        <td className="px-6 py-4 whitespace-nowrap ">
+                          <input type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a href="#" className="text-indigo-600 hover:text-indigo-900">
