@@ -10,8 +10,6 @@ import HomePage from './pages/HomePage';
 
 function App() {
   return (
-    <div className=" flex items-center justify-center ">
-    <div className="">
      <BrowserRouter>
         <Routes>
             <Route path="/" element={<LoginPage/>} />
@@ -19,8 +17,6 @@ function App() {
             <Route exact path="/home" element={<HomePage/>} />
         </Routes>
       </BrowserRouter>
-    </div>
-  </div>
   );
 }
 
