@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import AddProductModal from "../components/AddProductModal";
 
-const HomePage = () => {
+const ProductsPage = () => {
   const [products, setProducts] = useState([])
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [search, setSearch] = useState("");
@@ -154,4 +154,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ProductsPage;

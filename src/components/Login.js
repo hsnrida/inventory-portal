@@ -36,7 +36,7 @@ export default function Login(){
             // Set user auth token in local storage
             localStorage.setItem('token', token);
             
-            navigate('/home', { replace: true });            
+            navigate('/products', { replace: true });            
           } catch (error) {
             console.error(error);
           }

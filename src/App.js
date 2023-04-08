@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
             <Route path="/" element={<LoginPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
-            <Route exact path="/home" element={<HomePage/>} />
+            <Route exact path="/products" element={<ProductsPage/>} />
         </Routes>
       </BrowserRouter>
   );
