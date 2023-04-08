@@ -60,7 +60,18 @@ export default function ItemsPage() {
   const filteredItems = items.filter((item) =>
     item.serial_number.toString().includes(search)
   );
-  // const filteredItems = items;
+  
+  const handleRemoveItem = (item) => {
+    axios.delete(`products/${productId}/items/${item.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(response => {
+      getItems();
+    }).catch(error => {
+      console.error(error);
+    });
+  };
 
 
   return (
@@ -144,8 +155,8 @@ export default function ItemsPage() {
                           <input type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                            Edit
+                          <a onClick={(e) => handleRemoveItem(item)}  className="text-red-500 hover:text-red-700 focus:text-red-700 py-2 font-bold cursor-pointer">
+                            Remove
                           </a>
                         </td>
                       </tr>
