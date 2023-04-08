@@ -3,9 +3,11 @@ import Navbar from "../layouts/Navbar";
 import axios from 'axios';
 import { useState } from "react";
 import { useParams } from 'react-router-dom';
+import AddItemsModal from "../components/AddItems";
 
 export default function ItemsPage() {
   const [items, setItems] = useState([])
+  const [showAddItems, setShowAddItems] = useState(false);
 
   const [search, setSearch] = useState("");
   const { productId } = useParams();
@@ -26,12 +28,21 @@ export default function ItemsPage() {
     });
   }
 
-  const handleAddItem = (item) => {
+  const handleAddItems = () => {
+    setShowAddItems(true);
+  };
 
+  const handleCloseAddItems = () => {
+    setShowAddItems(false);
   };
 
   const handleSearchEvent = (event) => {
     setSearch(event.target.value);
+  };
+
+  const handleSaveItems = () => {
+    setShowAddItems(false);
+    getItems();
   };
 
   const handleCheck = (item) => {
@@ -56,6 +67,12 @@ export default function ItemsPage() {
     <Fragment>
 
       <Navbar />
+      <AddItemsModal
+          productId= {productId}
+          isOpen= {showAddItems}
+          onClose={handleCloseAddItems}
+          handleAddItems={handleSaveItems}
+        />
       <div className="flex justify-center pt-6">
         <div className="flex flex-col w-4/6 ">
           <h3>Items</h3>
@@ -78,7 +95,7 @@ export default function ItemsPage() {
                   </div>
                   <button
                     className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onClick={() => handleAddItem()}
+                    onClick={() => handleAddItems()}
                   >
                     Add Item
                   </button>
