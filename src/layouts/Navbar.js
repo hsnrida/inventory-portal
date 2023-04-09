@@ -24,6 +24,13 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
+            <ul className="flex flex-col lg:flex-row list-none mr-auto">
+              <li className="nav-item">
+                <Link to="/logout" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                  <span className="ml-2">Sign out</span>
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

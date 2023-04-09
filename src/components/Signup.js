@@ -1,7 +1,10 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { signupFields } from "../constants/FormFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
+import { useNavigate } from 'react-router-dom';
+
 
 const fields=signupFields;
 let fieldsState={};
@@ -11,16 +14,33 @@ fields.forEach(field => fieldsState[field.id]='');
 export default function Signup(){
   const [signupState,setSignupState]=useState(fieldsState);
 
+  const navigate = useNavigate();
   const handleChange=(e)=>setSignupState({...signupState,[e.target.id]:e.target.value});
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    createAccount()
+    createUserAccount()
   }
 
   //handle Signup API Integration here
-  const createAccount=()=>{
+  const createUserAccount=()=>{
+    axios.defaults.baseURL = "http://inventory.test/api/";
 
+
+    axios.post('register', {
+      name: signupState.username,
+      email: signupState.email_address,
+      password: signupState.password,
+      password_confirmation: signupState.confirm_password,
+
+    })
+    .then(response => {
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.access_token);
+      navigate('/products', { replace: true });    
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
     return(

@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import ProductsPage from './pages/ProductsPage';
 import ItemsPage from './pages/ItemsPage';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
             <Route path="/" element={<LoginPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
+            <Route exact path="/logout" element={<Logout/>} />
             <Route exact path="/products" element={<ProductsPage/>} />
             <Route exact path="/products/:productId/items" element={<ItemsPage/>} />
         </Routes>
