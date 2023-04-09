@@ -4,16 +4,17 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import AddProductModal from "../components/AddProductModal";
 import { useNavigate } from 'react-router-dom';
+import EditProductModal from "../components/EditProductModal";
 
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([])
   const [showAddProduct, setShowAddProduct] = useState(false);
+  const [seletectedProduct, setSeletectedProduct] = useState(null);
+
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-
-
 
   useEffect(() => { getProducts(); }, []);
 
@@ -28,7 +29,10 @@ const ProductsPage = () => {
     }).then(response => {
       setProducts(response.data.products);
     }).catch(error => {
-      console.error(error);
+
+      if(error.response.status === 401) {
+          navigate('/', { replace: true });            
+      }
     });
   }
 
@@ -56,13 +60,28 @@ const ProductsPage = () => {
     setShowAddProduct(true);
   };
 
+
+  const handleEditProduct = (e, product) => {
+    e.stopPropagation();
+    setSeletectedProduct(product);
+  };
+
   const handleCloseAddProduct = () => {
     setShowAddProduct(false);
+  };
+
+  const handleCloseEditProduct = () => {
+    setSeletectedProduct(null);
   };
 
   const handleCreateProduct = (product) => {
     setProducts([...products, product]);
     setShowAddProduct(false);
+  };
+
+  const handleProductEdited = () => {
+    getProducts();
+    handleCloseEditProduct();
   };
 
   const openItemsPage = (product) => {
@@ -79,6 +98,11 @@ const ProductsPage = () => {
         onClose={handleCloseAddProduct}
         onCreateProduct={handleCreateProduct}
       />
+         {seletectedProduct ? (<EditProductModal
+         product={seletectedProduct}
+        onClose={handleCloseEditProduct}
+        onEditProduct={handleProductEdited}
+      />) : ( <div></div>)}
       <div className="flex justify-center pt-6">
         <div className="flex flex-col w-4/6 ">
           <h3>Products</h3>
@@ -153,6 +177,11 @@ const ProductsPage = () => {
                               {product.count}
                             </span>
                           </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <a onClick={(e) => handleEditProduct(e, product)} className="text-blue-500 hover:text-blue-900 cursor-pointer">
+                            Edit
+                          </a>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a onClick={(e) => handleRemoveProduct(e, product)} className="text-red-500 hover:text-red-900 cursor-pointer">
                             Remove
