@@ -152,7 +152,7 @@ export default function ItemsPage() {
                         </td>
 
                         <td className="px-6 py-4 whitespace-nowrap ">
-                          <input type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} />
+                          <input className="cursor-pointer " type="checkbox" checked={item.sold} onChange={() => handleCheck(item)}  disabled={item.sold} />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a onClick={(e) => handleRemoveItem(item)}  className="text-red-500 hover:text-red-700 focus:text-red-700 py-2 font-bold cursor-pointer">
