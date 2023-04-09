@@ -3,37 +3,33 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-sky-500 mb-3">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
-            <Link to="/" className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
-              Inventory
-            </Link>
-            <button className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button">
-              <span className="block relative w-6 h-px rounded-sm bg-white"></span>
-              <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-              <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-            </button>
+    <nav className="bg-sky-500 shadow-lg">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-16">
+          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="hidden sm:block sm:ml-6">
+              <div className="flex space-x-4">
+                <Link
+                  to="/products"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-sky-400 focus:outline-none focus:bg-sky-400"
+                >
+                  Products
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className="lg:flex flex-grow items-center" id="example-navbar-warning">
-            <ul className="flex flex-col lg:flex-row list-none mr-auto">
-              <li className="nav-item">
-                <Link to="/products" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
-                  <span className="ml-2">Products</span>
-                </Link>
-              </li>
-            </ul>
-            <ul className="flex flex-col lg:flex-row list-none mr-auto">
-              <li className="nav-item">
-                <Link to="/logout" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
-                  <span className="ml-2">Sign out</span>
-                </Link>
-              </li>
-            </ul>
+          <div className="hidden sm:block sm:ml-6">
+            <div className="flex space-x-4">
+              <Link
+                to="/logout"
+                className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-sky-400 focus:outline-none focus:bg-sky-400"
+              >
+                Sign out
+              </Link>
+            </div>
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 }
