@@ -140,21 +140,21 @@ export default function ItemsPage() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredItems.map(item => (
                       <tr key={item.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-2 py-2 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">{item.id}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-2 py-2 whitespace-nowrap">
                           <div className="text-sm text-gray-900">{item.serial_number}</div>
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap ">
-                          <input className="cursor-pointer " type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} disabled={item.sold} />
+                        <td className="px-2 py-2 whitespace-nowrap ">
+                          <input className="cursor-pointer w-6 h-6" type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} disabled={item.sold} />
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td className="px-2 py-2 whitespace-nowrap text-right text-sm font-medium">
                           <a onClick={(e) => handleRemoveItem(item)} className="text-red-500 hover:text-red-700 focus:text-red-700 py-2 font-bold cursor-pointer">
                             Remove
                           </a>
