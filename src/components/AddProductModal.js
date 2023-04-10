@@ -17,12 +17,19 @@ export default function AddProductModal({ isOpen, onClose,onCreateProduct }) {
           Authorization: `Bearer ${token}`,
         }
       }).then(response => {
-  
+        setType("");
+        setDescription("");
         onCreateProduct(response.data.product);
       }).catch(error => {
         console.error(error);
       });
     };
+
+    const handleOnClose = () => {
+      setType("");
+      setDescription("");
+      onClose();
+    }
   
     return (
         <div className={`fixed inset-0 bg-gray-800 bg-opacity-50 ${isOpen ? "" : "hidden"}`}>
@@ -58,7 +65,7 @@ export default function AddProductModal({ isOpen, onClose,onCreateProduct }) {
               <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 Save
               </button>
-              <button type="button" onClick={onClose} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md ml-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+              <button type="button" onClick={handleOnClose} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md ml-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                 Cancel
               </button>
             </div>
