@@ -5,48 +5,44 @@ import Input from "./Input";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const fields=loginFields;
+const fields = loginFields;
 let fieldsState = {};
-fields.forEach(field=>fieldsState[field.id]='');
+fields.forEach(field => fieldsState[field.id] = '');
 
-export default function Login(){
-    const [loginState,setLoginState]=useState(fieldsState);
+export default function Login() {
+    const [loginState, setLoginState] = useState(fieldsState);
     const navigate = useNavigate();
-    const handleChange=(e)=>{
-        setLoginState({...loginState,[e.target.id]:e.target.value})
+    const handleChange = (e) => {
+        setLoginState({ ...loginState, [e.target.id]: e.target.value })
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         authenticateUser();
     }
 
-    //Handle Login API Integration here
-    const authenticateUser = async () =>{
+    const authenticateUser = async () => {
         axios.defaults.baseURL = process.env.REACT_APP_API_URL;
         try {
             const response = await axios.post('login', {
-              email: loginState.email_address,
-              password: loginState.password,
+                email: loginState.email_address,
+                password: loginState.password,
             });
             const token = response.data.access_token;
-            // Set user object in local storage
             localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // Set user auth token in local storage
             localStorage.setItem('token', token);
-            
-            navigate('/products', { replace: true });            
-          } catch (error) {
+
+            navigate('/products', { replace: true });
+        } catch (error) {
             console.error(error);
-          }
+        }
     }
 
-    return(
+    return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
+            <div className="-space-y-px">
+                {
+                    fields.map(field =>
                         <Input
                             key={field.id}
                             handleChange={handleChange}
@@ -58,14 +54,14 @@ export default function Login(){
                             type={field.type}
                             isRequired={field.isRequired}
                             placeholder={field.placeholder}
-                    />
-                
-                )
-            }
-        </div>
+                        />
 
-        <FormAction handleSubmit={handleSubmit} text="Login"/>
+                    )
+                }
+            </div>
 
-      </form>
+            <FormAction handleSubmit={handleSubmit} text="Login" />
+
+        </form>
     )
 }

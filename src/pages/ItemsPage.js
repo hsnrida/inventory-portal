@@ -60,7 +60,7 @@ export default function ItemsPage() {
   const filteredItems = items.filter((item) =>
     item.serial_number.toString().includes(search)
   );
-  
+
   const handleRemoveItem = (item) => {
     axios.delete(`products/${productId}/items/${item.id}`, {
       headers: {
@@ -79,11 +79,11 @@ export default function ItemsPage() {
 
       <Navbar />
       <AddItemsModal
-          productId= {productId}
-          isOpen= {showAddItems}
-          onClose={handleCloseAddItems}
-          handleAddItems={handleSaveItems}
-        />
+        productId={productId}
+        isOpen={showAddItems}
+        onClose={handleCloseAddItems}
+        handleAddItems={handleSaveItems}
+      />
       <div className="flex justify-center pt-6">
         <div className="flex flex-col w-4/6 ">
           <h3>Items</h3>
@@ -152,10 +152,10 @@ export default function ItemsPage() {
                         </td>
 
                         <td className="px-6 py-4 whitespace-nowrap ">
-                          <input className="cursor-pointer " type="checkbox" checked={item.sold} onChange={() => handleCheck(item)}  disabled={item.sold} />
+                          <input className="cursor-pointer " type="checkbox" checked={item.sold} onChange={() => handleCheck(item)} disabled={item.sold} />
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a onClick={(e) => handleRemoveItem(item)}  className="text-red-500 hover:text-red-700 focus:text-red-700 py-2 font-bold cursor-pointer">
+                          <a onClick={(e) => handleRemoveItem(item)} className="text-red-500 hover:text-red-700 focus:text-red-700 py-2 font-bold cursor-pointer">
                             Remove
                           </a>
                         </td>
