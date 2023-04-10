@@ -27,11 +27,8 @@ export default function AddItemsModal({ productId, isOpen, onClose, handleAddIte
   };
 
   const handleAddMore = () => {
-    // Create a copy of the existing items array to modify it
     const newItems = [...items];
-    // Add a new item with an empty serial number
     newItems.push({ serial_number: '' });
-    // Set the updated items array
     setItems(newItems);
     setCount(newItems.length);
   };
@@ -53,11 +50,8 @@ export default function AddItemsModal({ productId, isOpen, onClose, handleAddIte
   };
 
   const handleSerialNumberChange = (index, value) => {
-    // Create a copy of the existing items array to modify it
     const newItems = [...items];
-    // Update the serial number of the item at the specified index
     newItems[index].serial_number = value;
-    // Set the updated items array
     setItems(newItems);
   };
 
