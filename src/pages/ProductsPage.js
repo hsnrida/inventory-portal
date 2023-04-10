@@ -30,8 +30,8 @@ const ProductsPage = () => {
       setProducts(response.data.products);
     }).catch(error => {
 
-      if(error.response.status === 401) {
-          navigate('/', { replace: true });            
+      if (error.response.status === 401) {
+        navigate('/', { replace: true });
       }
     });
   }
@@ -75,6 +75,7 @@ const ProductsPage = () => {
   };
 
   const handleCreateProduct = (product) => {
+    product.count = 0;
     setProducts([...products, product]);
     setShowAddProduct(false);
   };
@@ -98,11 +99,11 @@ const ProductsPage = () => {
         onClose={handleCloseAddProduct}
         onCreateProduct={handleCreateProduct}
       />
-         {seletectedProduct ? (<EditProductModal
-         product={seletectedProduct}
+      {seletectedProduct ? (<EditProductModal
+        product={seletectedProduct}
         onClose={handleCloseEditProduct}
         onEditProduct={handleProductEdited}
-      />) : ( <div></div>)}
+      />) : (<div></div>)}
       <div className="flex justify-center pt-6">
         <div className="flex flex-col w-4/6 ">
           <h3>Products</h3>
@@ -130,59 +131,67 @@ const ProductsPage = () => {
                     Add Product
                   </button>
                 </div>
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-gray-200 ">
                   <thead className="bg-gray-50">
                     <tr>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                       >
                         Id
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                       >
                         type
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                       >
-                        Available Items
+                        Description
                       </th>
-                      <th scope="col" className="relative px-6 py-3">
-                        <span className="sr-only">Edit</span>
+                      <th
+                        scope="col"
+                        className="w-2 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"
+                      >
+                        Items
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs justify-center font-medium text-gray-500 uppercase"
+                      >
+                        Actions
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredProducts.map(product => (
                       <tr key={product.id} onClick={() => openItemsPage(product)} className="hover:bg-slate-100">
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">{product.id}</div>
-                              </div>
+                        <td className="px-6 py-3 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">{product.id}</div>
                             </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{product.type}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span
-                              className="px-2 inline-flex text-xs leading-5
-                      font-semibold rounded-full bg-green-100 text-green-800"
-                            >
-                              {product.count}
-                            </span>
-                          </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          </div>
+                        </td>
+                        <td className=" whitespace-nowrap">
+                          <div className="text-sm text-gray-900">{product.type}</div>
+                        </td>
+                        <td className=" whitespace-nowrap">
+                          <div className=" text-sm text-gray-900 w-64"><p className="truncate">{product.description}</p></div>
+                        </td>
+                        <td className="whitespace-nowrap">
+                          <span
+                            className="px-2 rounded-lg bg-green-100 text-green-800">
+                            {product.count}
+                          </span>
+                        </td>
+                        <td className="flex justify-around whitespace-nowrap text-sm font-medium">
                           <a onClick={(e) => handleEditProduct(e, product)} className="text-blue-500 hover:text-blue-900 cursor-pointer">
                             Edit
                           </a>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a onClick={(e) => handleRemoveProduct(e, product)} className="text-red-500 hover:text-red-900 cursor-pointer">
                             Remove
                           </a>
