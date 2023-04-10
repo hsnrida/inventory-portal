@@ -20,7 +20,7 @@ const ProductsPage = () => {
 
 
   const getProducts = async () => {
-    axios.defaults.baseURL = "http://inventory.test/api/";
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
     await axios.get('products', {
       headers: {

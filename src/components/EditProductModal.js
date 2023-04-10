@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import {useState} from "react";
 import axios from 'axios';
 
 
@@ -9,7 +9,7 @@ export default function EditProductModal({product, onClose, onEditProduct }) {
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      axios.defaults.baseURL = "http://inventory.test/api/";
+      axios.defaults.baseURL = process.env.REACT_APP_API_URL;
       const token = localStorage.getItem('token');
   
       const editedProduct = { type: type, description: description};

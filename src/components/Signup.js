@@ -24,8 +24,7 @@ export default function Signup(){
 
   //handle Signup API Integration here
   const createUserAccount=()=>{
-    axios.defaults.baseURL = "http://inventory.test/api/";
-
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
     axios.post('register', {
       name: signupState.username,

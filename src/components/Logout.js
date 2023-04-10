@@ -5,7 +5,7 @@ export default function Logout() {
     const navigate = useNavigate();
 
     const logout = () => {
-        axios.defaults.baseURL = "http://inventory.test/api/";
+        axios.defaults.baseURL = process.env.REACT_APP_API_URL;
         const token = localStorage.getItem('token');
         console.log("token");
 

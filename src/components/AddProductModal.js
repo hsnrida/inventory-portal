@@ -8,7 +8,7 @@ export default function AddProductModal({ isOpen, onClose,onCreateProduct }) {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      axios.defaults.baseURL = "http://inventory.test/api/";
+      axios.defaults.baseURL = process.env.REACT_APP_API_URL;
       const token = localStorage.getItem('token');
   
       const product = { type: type, description: description};

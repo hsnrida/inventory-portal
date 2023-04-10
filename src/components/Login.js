@@ -23,7 +23,7 @@ export default function Login(){
 
     //Handle Login API Integration here
     const authenticateUser = async () =>{
-        axios.defaults.baseURL = "http://inventory.test/api/";
+        axios.defaults.baseURL = process.env.REACT_APP_API_URL;
         try {
             const response = await axios.post('login', {
               email: loginState.email_address,

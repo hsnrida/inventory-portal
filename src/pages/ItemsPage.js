@@ -15,7 +15,7 @@ export default function ItemsPage() {
 
   useEffect(() => { getItems(); }, []);
   const getItems = async () => {
-    axios.defaults.baseURL = "http://inventory.test/api/";
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
     await axios.get(`products/${productId}/items`, {
       headers: {
